@@ -1,4 +1,4 @@
-<div id="<%= dom_id bookmark %>">
+<%= turbo_frame_tag bookmark do %>
   <p class="my-5">
     <strong class="block font-medium mb-1">Title:</strong>
     <%= bookmark.title %>
@@ -15,8 +15,8 @@
   </p>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this bookmark", bookmark, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Show this bookmark", bookmark, data: {turbo_frame: "_top"}, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this bookmark", edit_bookmark_path(bookmark), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">
   <% end %>
-</div>
+<% end %>

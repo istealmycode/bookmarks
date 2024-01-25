@@ -54,6 +54,7 @@ group :development, :test do
   gem "rspec-rails", "~> 6.1"
   gem "faker", "~> 3.2"
   gem "factory_bot_rails", "~> 6.4"
+  gem "pry", "~> 0.14.2"
 end
 
 group :development do
@@ -77,3 +78,4 @@ end
 gem "tailwindcss-rails", "~> 2.3"
 
 gem "devise", "~> 4.9"
+

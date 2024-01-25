@@ -89,14 +89,19 @@ RSpec.describe "/bookmarks", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          title: Faker::Book.title,
+          url: Faker::Internet.url,
+          description: Faker::Lorem.sentence,
+          user: user
+        }
       }
 
       it "updates the requested bookmark" do
         bookmark = Bookmark.create! valid_attributes
         patch bookmark_url(bookmark), params: { bookmark: new_attributes }
         bookmark.reload
-        skip("Add assertions for updated state")
+        expect(bookmark).to have_attributes(new_attributes)
       end
 
       it "redirects to the bookmark" do

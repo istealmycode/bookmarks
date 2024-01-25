@@ -22,10 +22,10 @@ class BookmarksController < ApplicationController
 
   # POST /bookmarks or /bookmarks.json
   def create
-    @bookmark = current_user.bookmarks.new(bookmark_params)
-
+    @bookmark = current_user.bookmarks.new(bookmark_params) 
     respond_to do |format|
       if @bookmark.save
+        format.turbo_stream
         format.html { redirect_to bookmark_url(@bookmark), notice: "Bookmark was successfully created." }
         format.json { render :show, status: :created, location: @bookmark }
       else
@@ -39,6 +39,7 @@ class BookmarksController < ApplicationController
   def update
     respond_to do |format|
       if @bookmark.update(bookmark_params)
+        format.turbo_stream
         format.html { redirect_to bookmark_url(@bookmark), notice: "Bookmark was successfully updated." }
         format.json { render :show, status: :ok, location: @bookmark }
       else
