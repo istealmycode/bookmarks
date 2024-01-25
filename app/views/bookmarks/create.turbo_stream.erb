@@ -1,0 +1,7 @@
+<%= turbo_stream.prepend "bookmarks" do %>
+  <%= render @bookmark %>
+<% end %>
+
+<%= turbo_stream.replace "bookmark_form" do %>
+  <%= render "form",  bookmark: current_user.bookmarks.new %>
+<% end %>
