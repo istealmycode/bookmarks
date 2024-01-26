@@ -4,4 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :bookmarks
+  has_many :taggings
+  has_many :tags, through: :taggings
 end
