@@ -5,6 +5,13 @@
   </p>
 
   <p class="my-5">
+    <% bookmark.tags.each do |tag| %>
+      <strong class="block font-medium mb-1">Tags:</strong>
+      <%= tag.name %>
+    <% end %>
+  </p>
+
+  <p class="my-5">
     <strong class="block font-medium mb-1">Url:</strong>
     <%= bookmark.url %>
   </p>

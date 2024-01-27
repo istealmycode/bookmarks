@@ -1,7 +1,13 @@
 <h1>All Tags for <%= current_user.email %></h1>
-
 <ul>
   <% @tags.each do |tag| %>
-    <%= tag %>
+    <li>
+      <h2><%= tag.name %></h2>
+      <ul>
+        <% tag.bookmarks.each do |bookmark| %>
+          <li><%= link_to bookmark.title, bookmark %></li>
+        <% end %>
+      </ul>
+    </li>
   <% end %>
 </ul>
