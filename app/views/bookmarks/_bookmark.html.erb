@@ -19,7 +19,7 @@
     <p class="my-1 p-2">
       <% if bookmark.tags.any? %>
         <% bookmark.tags.each do |tag| %>
-          <span class="tag bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm ml-2"><%= tag.name %></span>
+          <%= link_to tag.name, tagged_bookmarks_path(tag: tag.name), data: { turbo_frame: "_top" }, class: "tag bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm ml-2" %>
         <% end %>
       <% end %>
     </p>

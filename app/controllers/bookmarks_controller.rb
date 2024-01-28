@@ -7,6 +7,12 @@ class BookmarksController < ApplicationController
     @bookmarks = current_user.bookmarks
   end
 
+  def index_by_tag
+    @tag = current_user.tags.find_by(name: params[:tag])
+    @bookmarks = @tag.bookmarks
+    render :index
+  end
+
   # GET /bookmarks/1 or /bookmarks/1.json
   def show
   end
