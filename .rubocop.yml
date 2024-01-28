@@ -5,6 +5,7 @@ AllCops:
     - 'bin/bundle'
     - 'config/initializers/**/*'
   NewCops: enable
+  SuggestExtensions: false
 Style/Documentation:
   Enabled: false
 Metrics/BlockLength:
