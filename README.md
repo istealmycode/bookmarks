@@ -19,6 +19,11 @@ This is a basic Rails project that serves as a bookmark storage application.
 rails db:create
 rails db:migrate
 ```
+4. You can also seed the database with an initial user and bookmarks with:
+
+```bash
+rails db:seed
+```
 
 ## Install Dependices 
 ```bash
@@ -32,7 +37,6 @@ bin/dev
 ```
 
 ## To Do List
-- db:seed
 - Sorting
 - Filtering
 - Tag list
