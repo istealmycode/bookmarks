@@ -52,4 +52,17 @@ RSpec.describe Bookmark, type: :model do
       expect(bookmark.tag_list).to eq('tag1, tag2')
     end
   end
+
+  describe 'callbacks' do
+    it 'creates tags after save' do
+      bookmark = build(:bookmark, tag_list: 'tag1, tag2')
+      expect { bookmark.save }.to change { Tag.count }.by(2)
+    end
+
+    it 'removes tags before destroy' do
+      bookmark = create(:bookmark, tag_list: 'tag1, tag2')
+      expect { bookmark.destroy }.to change { Tag.count }.by(-2)
+    end
+  end
+
 end
