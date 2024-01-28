@@ -221,6 +221,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    shoulda-matchers (6.1.0)
+      activesupport (>= 5.2.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -242,6 +244,9 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    validate_url (1.0.15)
+      activemodel (>= 3.0.0)
+      public_suffix
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.1)
@@ -275,12 +280,14 @@ DEPENDENCIES
   rails (~> 7.0.8)
   rspec-rails (~> 6.1)
   selenium-webdriver
+  shoulda-matchers (~> 6.1)
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
   tailwindcss-rails (~> 2.3)
   turbo-rails
   tzinfo-data
+  validate_url (~> 1.0)
   web-console
 
 RUBY VERSION

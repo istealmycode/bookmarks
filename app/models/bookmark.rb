@@ -2,7 +2,7 @@ class Bookmark < ApplicationRecord
   belongs_to :user
   has_many :taggings
   has_many :tags, through: :taggings
-  validates :url, presence: true
+  validates :url, presence: true, url: true
   validates :title, presence: true
   attr_accessor :tag_list
 

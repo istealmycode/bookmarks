@@ -27,11 +27,11 @@
   </div>
 
   <div class="my-5">
-    <%= form.label "Tag list (comma seperated)" %><br />
-    <%= form.text_field :tag_list %>
+    <%= form.label "Tag list (comma separated)" %><br />
+    <%= form.text_field :tag_list, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "rounded-lg py-3 ml-2 px-5 bg-orange-500 inline-block font-medium text-white hover:bg-orange-600" %>
   </div>
 <% end %>

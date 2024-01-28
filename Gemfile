@@ -72,7 +72,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-
+  gem "shoulda-matchers", "~> 6.1"
 end
 
 gem "tailwindcss-rails", "~> 2.3"
@@ -81,3 +81,6 @@ gem "devise", "~> 4.9"
 
 
 gem "pg", "~> 1.5"
+
+gem "validate_url", "~> 1.0"
+
