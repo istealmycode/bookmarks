@@ -55,4 +55,5 @@ jobs:
       # - name: Security audit application code
       #   run: bin/brakeman -q -w2
       - name: Lint Ruby files
+        run: gem install rubocop rubocop-rails
         run: bin/rubocop --parallel
