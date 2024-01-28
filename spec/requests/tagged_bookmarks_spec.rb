@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 # spec/requests/tagged_bookmarks_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'Tagged Bookmarks', type: :request do
   let(:user) { create(:user) }
-  let(:tag) { create(:tag, user: user, name: 'example_tag') }
-  let!(:tagged_bookmark) { create(:bookmark, user: user, tag_list: 'example_tag') }
-  let!(:untagged_bookmark) { create(:bookmark, user: user, tag_list: 'other_tag') }
+  let(:tag) { create(:tag, user:, name: 'example_tag') }
+  let!(:tagged_bookmark) { create(:bookmark, user:, tag_list: 'example_tag') }
+  let!(:untagged_bookmark) { create(:bookmark, user:, tag_list: 'other_tag') }
 
   describe 'GET /tagged_bookmarks/:tag' do
     before do

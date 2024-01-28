@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/models/user_spec.rb
 RSpec.describe User, type: :model do
   describe 'associations' do

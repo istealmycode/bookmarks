@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Tagging, type: :model do
   describe 'associations' do
     it { should belong_to(:tag) }

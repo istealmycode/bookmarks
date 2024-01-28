@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :tag do
     name { Faker::Lorem.word }
@@ -8,5 +10,5 @@ FactoryBot.define do
         create_list(:bookmark, 3, user: tag.user, tags: [tag])
       end
     end
-   end
+  end
 end

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Bookmark, type: :model do
-  let(:user) { create(:user) } 
+  let(:user) { create(:user) }
 
   describe 'validations' do
     it { should validate_presence_of(:url) }
@@ -46,7 +48,7 @@ RSpec.describe Bookmark, type: :model do
       bookmark.update(tag_list: 'tag3, tag4')
       expect(bookmark.tags.pluck(:name)).to contain_exactly('tag3', 'tag4')
     end
-   
+
     it 'can retrieve the tags' do
       bookmark = create(:bookmark, tag_list: 'tag1, tag2')
       expect(bookmark.tag_list).to eq('tag1, tag2')
@@ -64,5 +66,4 @@ RSpec.describe Bookmark, type: :model do
       expect { bookmark.destroy }.to change { Tag.count }.by(-2)
     end
   end
-
 end
