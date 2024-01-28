@@ -1,13 +1,13 @@
 class Bookmark < ApplicationRecord
   belongs_to :user
-  has_many :taggings, dependent: :destroy
+  has_many :taggings
   has_many :tags, through: :taggings
   validates :url, presence: true
   validates :title, presence: true
   attr_accessor :tag_list
 
   after_save :save_tags
-  #before_destroy :destroy_tags
+  before_destroy :destroy_tags
 
 
   def tag_list
