@@ -37,6 +37,7 @@ bin/dev
 ```
 
 ## To Do List
+- nav bar with devise links
 - Sorting
 - Filtering
 - Tag list
