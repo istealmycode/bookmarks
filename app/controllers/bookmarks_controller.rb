@@ -22,7 +22,8 @@ class BookmarksController < ApplicationController
 
   # POST /bookmarks or /bookmarks.json
   def create
-    @bookmark = current_user.bookmarks.new(bookmark_params) 
+    @bookmark = current_user.bookmarks.build(bookmark_params) 
+
     respond_to do |format|
       if @bookmark.save
         format.turbo_stream
@@ -67,6 +68,6 @@ class BookmarksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bookmark_params
-      params.require(:bookmark).permit(:title, :url, :description)
+      params.require(:bookmark).permit(:title, :url, :description, :tag_list)
     end
 end
