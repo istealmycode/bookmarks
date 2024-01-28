@@ -6,7 +6,7 @@ class Bookmark < ApplicationRecord
   has_many :tags, through: :taggings
   validates :url, presence: true, url: true
   validates :title, presence: true
-  attr_accessor :tag_list
+  attr_writer :tag_list
 
   after_save :save_tags
   before_destroy :destroy_tags

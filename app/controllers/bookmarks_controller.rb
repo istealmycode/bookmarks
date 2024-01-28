@@ -15,30 +15,23 @@ class BookmarksController < ApplicationController
     render :index
   end
 
-  # GET /bookmarks/1 or /bookmarks/1.json
   def show; end
 
-  # GET /bookmarks/new
   def new
     @bookmark = current_user.bookmarks.new
   end
 
-  # GET /bookmarks/1/edit
   def edit; end
 
-  # POST /bookmarks or /bookmarks.json
   def create
     @bookmark = current_user.bookmarks.build(bookmark_params)
 
+    return render_new_bookmark unless @bookmark.save
+
     respond_to do |format|
-      if @bookmark.save
-        format.turbo_stream
-        format.html { redirect_to bookmark_url(@bookmark), notice: 'Bookmark was successfully created.' }
-        format.json { render :show, status: :created, location: @bookmark }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @bookmark.errors, status: :unprocessable_entity }
-      end
+      format.turbo_stream
+      format.html { redirect_to bookmark_url(@bookmark), notice: 'Bookmark was successfully created.' }
+      format.json { render :show, status: :created, location: @bookmark }
     end
   end
 
@@ -56,7 +49,6 @@ class BookmarksController < ApplicationController
     end
   end
 
-  # DELETE /bookmarks/1 or /bookmarks/1.json
   def destroy
     @bookmark.destroy
 
@@ -68,12 +60,17 @@ class BookmarksController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  def render_new_bookmark
+    respond_to do |format|
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: @bookmark.errors, status: :unprocessable_entity }
+    end
+  end
+
   def set_bookmark
     @bookmark = Bookmark.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def bookmark_params
     params.require(:bookmark).permit(:title, :url, :description, :tag_list)
   end
