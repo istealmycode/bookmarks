@@ -52,9 +52,9 @@ gem 'bootsnap', require: false
 
 gem 'devise', '~> 4.9'
 gem 'pg', '~> 1.5'
+gem 'rubocop', require: false
 gem 'tailwindcss-rails', '~> 2.3'
 gem 'validate_url', '~> 1.0'
-gem 'rubocop', require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
