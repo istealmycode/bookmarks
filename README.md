@@ -1,24 +1,41 @@
-# README
+# Bookmarks App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Table of Contents
 
-Things you may want to cover:
+- [Database Setup](#database-setup)
+- [Install Dependencies](#install-dependencies)
+- [To Start the App](#to-start-the-app)
+- [To Do List](#to-do-list)
 
-* Ruby version
+This is a basic Rails project that serves as a bookmark storage application.
 
-* System dependencies
+## Database Setup
 
-* Configuration
+1. Make sure you have PostgreSQL installed on your system.
+2. Update `config/database.yml` with your PostgreSQL username and password.
+3. Run the following commands to create and migrate the database:
 
-* Database creation
+```bash
+rails db:create
+rails db:migrate
+```
 
-* Database initialization
+## Install Dependices 
+```bash
+bundle install
+```
 
-* How to run the test suite
+## To start the app
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+bin/dev
+```
 
-* Deployment instructions
+## To Do List
+- db:seed
+- Sorting
+- Filtering
+- Tag list
+- Pagination
+- Styling on devise views
 
-* ...
