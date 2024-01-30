@@ -32,7 +32,6 @@ bin/dev
 ```
 
 ## To Do List
-- db:seed
 - Sorting
 - Filtering
 - Tag list

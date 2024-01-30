@@ -7,12 +7,8 @@ class BookmarksController < ApplicationController
   # GET /bookmarks or /bookmarks.json
   def index
     @bookmarks = current_user.bookmarks
-  end
-
-  def index_by_tag
-    @tag = current_user.tags.find_by(name: params[:tag])
-    @bookmarks = @tag.bookmarks
-    render :index
+    @bookmarks = filter_bookmarks(params[:filter]) if params[:filter].present? and !params[:filter].blank?
+    @bookmarks = @bookmarks.joins(:tags).where('tags.name = ?', params[:tag]) if params[:tag].present? and !params[:tag].blank?
   end
 
   def show; end
@@ -59,6 +55,16 @@ class BookmarksController < ApplicationController
   end
 
   private
+
+  def filter_bookmarks(filter)
+    @bookmarks.joins(:tags)
+                           .where('bookmarks.description ILIKE :filter OR ' \
+                                  'bookmarks.title ILIKE :filter OR ' \
+                                  'bookmarks.url ILIKE :filter OR ' \
+                                  'tags.name ILIKE :filter',
+                                  filter: "%#{filter}%")
+                           .distinct
+  end
 
   def render_new_bookmark
     respond_to do |format|
