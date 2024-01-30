@@ -37,32 +37,30 @@ RSpec.describe Bookmark, type: :model do
   end
 
   describe 'tag_list' do
+    let(:bookmark) { create(:bookmark, tag_list: 'tag1, tag2') }
+
     it 'can be created with tags' do
-      bookmark = create(:bookmark, tag_list: 'tag1, tag2')
-      expect(bookmark.tags.count).to eq(2)
       expect(bookmark.tags.pluck(:name)).to contain_exactly('tag1', 'tag2')
     end
 
     it 'can be updated with new tags' do
-      bookmark = create(:bookmark, tag_list: 'tag1, tag2')
       bookmark.update(tag_list: 'tag3, tag4')
       expect(bookmark.tags.pluck(:name)).to contain_exactly('tag3', 'tag4')
     end
 
     it 'can retrieve the tags' do
-      bookmark = create(:bookmark, tag_list: 'tag1, tag2')
       expect(bookmark.tag_list).to eq('tag1, tag2')
     end
   end
 
   describe 'callbacks' do
+    let(:bookmark) { build(:bookmark, tag_list: 'tag1, tag2') }
     it 'creates tags after save' do
-      bookmark = build(:bookmark, tag_list: 'tag1, tag2')
       expect { bookmark.save }.to change { Tag.count }.by(2)
     end
 
     it 'removes tags before destroy' do
-      bookmark = create(:bookmark, tag_list: 'tag1, tag2')
+      bookmark.save
       expect { bookmark.destroy }.to change { Tag.count }.by(-2)
     end
   end

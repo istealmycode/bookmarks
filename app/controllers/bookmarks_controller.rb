@@ -4,12 +4,12 @@ class BookmarksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_bookmark, only: %i[show edit update destroy]
   before_action :collect_bookmarks, only: %i[index]
+
   def index
     @bookmarks = filter_bookmarks(params[:filter])
-    return unless params[:tag].present? && !params[:tag].blank?
+    return unless (tag = params[:tag]).present?
 
-    @bookmarks = @bookmarks.joins(:tags).where('tags.name = ?',
-                                               params[:tag])
+    @bookmarks = @bookmarks.joins(:tags).where('tags.name = ?', tag)
   end
 
   def show; end
@@ -23,7 +23,7 @@ class BookmarksController < ApplicationController
   def create
     @bookmark = current_user.bookmarks.build(bookmark_params)
 
-    return render_new_bookmark unless @bookmark.save
+    return render_error(:new) unless @bookmark.save
 
     respond_to do |format|
       format.turbo_stream
@@ -33,7 +33,7 @@ class BookmarksController < ApplicationController
   end
 
   def update
-    return render_edit_bookmark unless @bookmark.update(bookmark_params)
+    return render_error(:edit) unless @bookmark.update(bookmark_params)
 
     respond_to do |format|
       format.turbo_stream
@@ -54,7 +54,7 @@ class BookmarksController < ApplicationController
   private
 
   def filter_bookmarks(filter)
-    return @bookmarks unless params[:filter].present? && !params[:filter].blank?
+    return @bookmarks unless params[:filter].present?
 
     @bookmarks.joins(:tags)
               .where('bookmarks.description ILIKE :filter OR ' \
@@ -65,16 +65,9 @@ class BookmarksController < ApplicationController
               .distinct
   end
 
-  def render_new_bookmark
+  def render_error(action)
     respond_to do |format|
-      format.html { render :new, status: :unprocessable_entity }
-      format.json { render json: @bookmark.errors, status: :unprocessable_entity }
-    end
-  end
-
-  def render_edit_bookmark
-    respond_to do |format|
-      format.html { render :edit, status: :unprocessable_entity }
+      format.html { render action, status: :unprocessable_entity }
       format.json { render json: @bookmark.errors, status: :unprocessable_entity }
     end
   end
