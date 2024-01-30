@@ -15,7 +15,7 @@ RSpec.describe 'bookmarks/index', type: :view do
   end
 
   before do
-    2.times do 
+    2.times do
       Bookmark.create!(valid_attributes)
     end
     assign(:bookmarks, Bookmark.paginate(page: 1, per_page: 1))
