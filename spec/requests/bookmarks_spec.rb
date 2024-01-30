@@ -33,6 +33,52 @@ RSpec.describe '/bookmarks', type: :request do
       get bookmarks_url
       expect(response).to be_successful
     end
+
+    context 'when filtering by term' do
+      let!(:one_bookmark) do
+        create(:bookmark, user:, title: "Bob's Bookmark", description: "This is Bob's bookmark", url: 'http://example.com',
+                          tags: [create(:tag, name: 'bob')])
+      end
+      let!(:another_bookmark) do
+        create(:bookmark, user:, title: 'Another Bookmark', description: 'This is another bookmark',
+                          url: 'http://example.com/another', tags: [create(:tag, name: 'another')])
+      end
+
+      before do
+        get bookmarks_url, params: { filter: 'bob' }
+      end
+
+      it 'returns results with the filter term in the title' do
+        expect(CGI.unescapeHTML(response.body)).to include("Bob's bookmark")
+      end
+
+      it 'does not return unmatched results' do
+        expect(CGI.unescapeHTML(response.body)).to_not include('Another bookmark')
+      end
+    end
+
+    context 'when filtering by tag' do
+      let!(:one_bookmark) do
+        create(:bookmark, user:, title: 'A Bookmark', description: 'This is a bookmark', url: 'http://example.com',
+                          tags: [create(:tag, name: 'bob')])
+      end
+      let!(:one_bookmark) do
+        create(:bookmark, user:, title: 'A Bookmark', description: 'This is a bookmark', url: 'http://example.com',
+                          tags: [create(:tag, name: 'robert')])
+      end
+
+      before do
+        get bookmarks_url, params: { tag: 'bob' }
+      end
+
+      it 'returns results with the filter term in the title' do
+        expect(CGI.unescapeHTML(response.body)).to include('Bob')
+      end
+
+      it 'does not return unmatched results' do
+        expect(CGI.unescapeHTML(response.body)).to_not include('Robert')
+      end
+    end
   end
 
   describe 'GET /show' do
