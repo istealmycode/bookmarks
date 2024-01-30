@@ -28,22 +28,21 @@ RSpec.describe '/bookmarks', type: :request do
   end
 
   describe 'GET /index' do
+    let!(:one_bookmark) do
+      create(:bookmark, user:, title: "Bob's Bookmark", description: "This is Bob's bookmark", url: 'http://example.com',
+                        tags: [create(:tag, name: 'bob')])
+    end
+    let!(:another_bookmark) do
+      create(:bookmark, user:, title: 'Another Bookmark', description: 'This is another bookmark',
+                        url: 'http://example.com/another', tags: [create(:tag, name: 'another')])
+    end
+
     it 'renders a successful response' do
-      Bookmark.create! valid_attributes
       get bookmarks_url
       expect(response).to be_successful
     end
 
     context 'when filtering by term' do
-      let!(:one_bookmark) do
-        create(:bookmark, user:, title: "Bob's Bookmark", description: "This is Bob's bookmark", url: 'http://example.com',
-                          tags: [create(:tag, name: 'bob')])
-      end
-      let!(:another_bookmark) do
-        create(:bookmark, user:, title: 'Another Bookmark', description: 'This is another bookmark',
-                          url: 'http://example.com/another', tags: [create(:tag, name: 'another')])
-      end
-
       before do
         get bookmarks_url, params: { filter: 'bob' }
       end
@@ -62,9 +61,9 @@ RSpec.describe '/bookmarks', type: :request do
         create(:bookmark, user:, title: 'A Bookmark', description: 'This is a bookmark', url: 'http://example.com',
                           tags: [create(:tag, name: 'bob')])
       end
-      let!(:one_bookmark) do
+      let!(:another_bookmark) do
         create(:bookmark, user:, title: 'A Bookmark', description: 'This is a bookmark', url: 'http://example.com',
-                          tags: [create(:tag, name: 'robert')])
+                          tags: [create(:tag, name: 'another')])
       end
 
       before do
@@ -76,7 +75,7 @@ RSpec.describe '/bookmarks', type: :request do
       end
 
       it 'does not return unmatched results' do
-        expect(CGI.unescapeHTML(response.body)).to_not include('Robert')
+        expect(CGI.unescapeHTML(response.body)).to_not include('Another')
       end
     end
   end
