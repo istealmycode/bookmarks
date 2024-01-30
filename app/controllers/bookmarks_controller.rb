@@ -4,7 +4,6 @@ class BookmarksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_bookmark, only: %i[show edit update destroy]
 
-  # GET /bookmarks or /bookmarks.json
   def index
     @bookmarks = current_user.bookmarks
     @bookmarks = filter_bookmarks(params[:filter])
@@ -34,17 +33,13 @@ class BookmarksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /bookmarks/1 or /bookmarks/1.json
   def update
+    return render_edit_bookmark unless @bookmark.update(bookmark_params)
+
     respond_to do |format|
-      if @bookmark.update(bookmark_params)
-        format.turbo_stream
-        format.html { redirect_to bookmark_url(@bookmark), notice: 'Bookmark was successfully updated.' }
-        format.json { render :show, status: :ok, location: @bookmark }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @bookmark.errors, status: :unprocessable_entity }
-      end
+      format.turbo_stream
+      format.html { redirect_to bookmark_url(@bookmark), notice: 'Bookmark was successfully updated.' }
+      format.json { render :show, status: :ok, location: @bookmark }
     end
   end
 
@@ -74,6 +69,13 @@ class BookmarksController < ApplicationController
   def render_new_bookmark
     respond_to do |format|
       format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: @bookmark.errors, status: :unprocessable_entity }
+    end
+  end
+
+  def render_edit_bookmark
+    respond_to do |format|
+      format.html { render :edit, status: :unprocessable_entity }
       format.json { render json: @bookmark.errors, status: :unprocessable_entity }
     end
   end
