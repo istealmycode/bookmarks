@@ -12,6 +12,18 @@
   </head>
 
   <body>
+    <header class="flex items-center justify-between shadow text-white bg-green-400 p-4">
+      <div class="text-xl font-bold">Bookmark App</div>
+      <nav>
+        <% if user_signed_in? %>
+          <span class="mr-4"><%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, method: :delete %></span>
+        <% else %>
+          <span class="mr-4"><%= link_to "Sign in", new_user_session_path %></span>
+          <span class="mr-4"><%= link_to "Sign up", new_user_registration_path %></span>
+          <span><%= link_to "Reset password", new_user_password_path %></span>
+        <% end %>
+      </nav>
+    </header>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
