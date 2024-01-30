@@ -5,8 +5,8 @@
 
   
     <div class="mb-2 b-1">
-      <% if params[:tag] %>
-        <h1 class="font-bold text-4xl">Bookmarks Tagged <%= params[:tag].humanize %> | <%= link_to "All Bookmarks", bookmarks_path, class: "underline" %></h1>
+      <% if params[:tag] && !params[:tag].blank? %>
+        <h1 class="font-bold text-4xl">Bookmarks Tagged <%= params[:tag].humanize %> | <%= link_to "Clear Tag Selection", bookmarks_path(filter: params[:filter]), class: "underline" %></h1>
       <% else %>
         <h1 class="font-bold text-4xl">Bookmarks</h1>
       <% end %>
@@ -19,7 +19,7 @@
         <%= hidden_field_tag(:tag, params[:tag]) %>
         <%= submit_tag "Filter", class: "inline-block rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
       <% end %>
-      <%= link_to "Clear Filter", bookmarks_path, data: {turbo_frame: "_top"}, class: "rounded-lg py-3 ml-2 px-5 bg-orange-500 inline-block font-medium text-white hover:bg-orange-600" %> 
+      <%= link_to "Clear Filter", bookmarks_path(tag: params[:tag]), data: {turbo_frame: "_top"}, class: "rounded-lg py-3 ml-2 px-5 bg-orange-500 inline-block font-medium text-white hover:bg-orange-600" %> 
 
       <%= link_to "New bookmark", new_bookmark_path, data: {turbo_frame: "new_bookmark"}, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %> 
     </div>
@@ -30,4 +30,6 @@
   <div id="bookmarks" class="min-w-full">
     <%= render @bookmarks %>
   </div>
+  <%= will_paginate @posts %>
+
 </div>

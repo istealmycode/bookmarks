@@ -83,3 +83,5 @@ group :test do
   gem 'shoulda-matchers', '~> 6.1'
   gem 'simplecov', require: false
 end
+
+gem 'will_paginate', '~> 4.0'

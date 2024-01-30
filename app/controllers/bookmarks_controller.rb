@@ -3,9 +3,8 @@
 class BookmarksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_bookmark, only: %i[show edit update destroy]
-
+  before_action :collect_bookmarks, only: %i[index]
   def index
-    @bookmarks = current_user.bookmarks
     @bookmarks = filter_bookmarks(params[:filter])
     return unless params[:tag].present? && !params[:tag].blank?
 
@@ -82,6 +81,10 @@ class BookmarksController < ApplicationController
 
   def set_bookmark
     @bookmark = Bookmark.find(params[:id])
+  end
+
+  def collect_bookmarks
+    @bookmarks = current_user.bookmarks.paginate(page: params[:page], per_page: 5).order('bookmarks.title ASC')
   end
 
   def bookmark_params
