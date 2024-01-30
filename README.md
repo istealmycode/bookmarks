@@ -38,8 +38,5 @@ bin/dev
 
 ## To Do List
 - Sorting
-- Filtering -- minor cleanups
 - Tag list
-- Pagination
-- Styling on devise views
 
